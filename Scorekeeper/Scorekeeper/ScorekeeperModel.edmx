@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ScorekeeperDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ScorekeeperDBModelStoreContainer">
+          <EntitySet Name="Course" EntityType="ScorekeeperDBModel.Store.Course" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Hole" EntityType="ScorekeeperDBModel.Store.Hole" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RoundFinalScore" EntityType="ScorekeeperDBModel.Store.RoundFinalScore" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Rounds" EntityType="ScorekeeperDBModel.Store.Rounds" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RoundScore" EntityType="ScorekeeperDBModel.Store.RoundScore" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Users" EntityType="ScorekeeperDBModel.Store.Users" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK__Hole__CourseId__1920BF5C" Association="ScorekeeperDBModel.Store.FK__Hole__CourseId__1920BF5C">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Hole" EntitySet="Hole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rounds__CourseId__1273C1CD" Association="ScorekeeperDBModel.Store.FK__Rounds__CourseId__1273C1CD">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Rounds" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rounds__UserId__117F9D94" Association="ScorekeeperDBModel.Store.FK__Rounds__UserId__117F9D94">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rounds" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoundScor__HoleI__173876EA" Association="ScorekeeperDBModel.Store.FK__RoundScor__HoleI__173876EA">
+            <End Role="Hole" EntitySet="Hole" />
+            <End Role="RoundScore" EntitySet="RoundScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoundScor__Round__164452B1" Association="ScorekeeperDBModel.Store.FK__RoundScor__Round__164452B1">
+            <End Role="Rounds" EntitySet="Rounds" />
+            <End Role="RoundScore" EntitySet="RoundScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoundFinalScore_Course" Association="ScorekeeperDBModel.Store.FK_RoundFinalScore_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="RoundFinalScore" EntitySet="RoundFinalScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoundFinalScore_Users" Association="ScorekeeperDBModel.Store.FK_RoundFinalScore_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoundFinalScore" EntitySet="RoundFinalScore" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Hole">
+          <Key>
+            <PropertyRef Name="HoleId" />
+          </Key>
+          <Property Name="HoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CourseId" Type="uniqueidentifier" />
+          <Property Name="HoleNumber" Type="int" />
+          <Property Name="Distance" Type="int" />
+        </EntityType>
+        <EntityType Name="RoundFinalScore">
+          <Key>
+            <PropertyRef Name="RoundFinalScoreId" />
+          </Key>
+          <Property Name="RoundFinalScoreId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CourseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FinalScore" Type="int" />
+          <Property Name="PlayedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Name="RoundId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CourseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoundNumber" Type="int" />
+          <Property Name="Notes" Type="varchar" MaxLength="300" />
+          <Property Name="PlayedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoundScore">
+          <Key>
+            <PropertyRef Name="RoundScoreId" />
+          </Key>
+          <Property Name="RoundScoreId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoundId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Strokes" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Hole__CourseId__1920BF5C">
+          <End Role="Course" Type="ScorekeeperDBModel.Store.Course" Multiplicity="0..1" />
+          <End Role="Hole" Type="ScorekeeperDBModel.Store.Hole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Hole">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rounds__CourseId__1273C1CD">
+          <End Role="Course" Type="ScorekeeperDBModel.Store.Course" Multiplicity="1" />
+          <End Role="Rounds" Type="ScorekeeperDBModel.Store.Rounds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Rounds">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rounds__UserId__117F9D94">
+          <End Role="Users" Type="ScorekeeperDBModel.Store.Users" Multiplicity="1" />
+          <End Role="Rounds" Type="ScorekeeperDBModel.Store.Rounds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Rounds">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoundScor__HoleI__173876EA">
+          <End Role="Hole" Type="ScorekeeperDBModel.Store.Hole" Multiplicity="1" />
+          <End Role="RoundScore" Type="ScorekeeperDBModel.Store.RoundScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hole">
+              <PropertyRef Name="HoleId" />
+            </Principal>
+            <Dependent Role="RoundScore">
+              <PropertyRef Name="HoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoundScor__Round__164452B1">
+          <End Role="Rounds" Type="ScorekeeperDBModel.Store.Rounds" Multiplicity="1" />
+          <End Role="RoundScore" Type="ScorekeeperDBModel.Store.RoundScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="RoundId" />
+            </Principal>
+            <Dependent Role="RoundScore">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoundFinalScore_Course">
+          <End Role="Course" Type="ScorekeeperDBModel.Store.Course" Multiplicity="1" />
+          <End Role="RoundFinalScore" Type="ScorekeeperDBModel.Store.RoundFinalScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="RoundFinalScore">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoundFinalScore_Users">
+          <End Role="Users" Type="ScorekeeperDBModel.Store.Users" Multiplicity="1" />
+          <End Role="RoundFinalScore" Type="ScorekeeperDBModel.Store.RoundFinalScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoundFinalScore">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScorekeeperDBModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ScorekeeperDBEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Users" EntityType="ScorekeeperDBModel.User" />
+          <EntitySet Name="Courses" EntityType="ScorekeeperDBModel.Course" />
+          <EntitySet Name="Hole" EntityType="ScorekeeperDBModel.Hole" />
+          <EntitySet Name="Rounds" EntityType="ScorekeeperDBModel.Round" />
+          <EntitySet Name="RoundScore" EntityType="ScorekeeperDBModel.RoundScore" />
+          <AssociationSet Name="FK__Hole__CourseId__0AD2A005" Association="ScorekeeperDBModel.FK__Hole__CourseId__0AD2A005">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Hole" EntitySet="Hole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rounds__CourseId__1273C1CD" Association="ScorekeeperDBModel.FK__Rounds__CourseId__1273C1CD">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Rounds" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoundScor__HoleI__173876EA" Association="ScorekeeperDBModel.FK__RoundScor__HoleI__173876EA">
+            <End Role="Hole" EntitySet="Hole" />
+            <End Role="RoundScore" EntitySet="RoundScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rounds__UserId__117F9D94" Association="ScorekeeperDBModel.FK__Rounds__UserId__117F9D94">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rounds" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoundScor__Round__164452B1" Association="ScorekeeperDBModel.FK__RoundScor__Round__164452B1">
+            <End Role="Rounds" EntitySet="Rounds" />
+            <End Role="RoundScore" EntitySet="RoundScore" />
+          </AssociationSet>
+          <EntitySet Name="RoundFinalScore" EntityType="ScorekeeperDBModel.RoundFinalScore" />
+          <AssociationSet Name="FK_RoundFinalScore_Course" Association="ScorekeeperDBModel.FK_RoundFinalScore_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="RoundFinalScore" EntitySet="RoundFinalScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoundFinalScore_Users" Association="ScorekeeperDBModel.FK_RoundFinalScore_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="RoundFinalScore" EntitySet="RoundFinalScore" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Rounds" Relationship="ScorekeeperDBModel.FK__Rounds__UserId__117F9D94" FromRole="User" ToRole="Rounds" />
+          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoundFinalScore" Relationship="ScorekeeperDBModel.FK_RoundFinalScore_Users" FromRole="User" ToRole="RoundFinalScore" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Type="Guid" Name="CourseId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Hole" Relationship="ScorekeeperDBModel.FK__Hole__CourseId__0AD2A005" FromRole="Course" ToRole="Hole" />
+          <NavigationProperty Name="Rounds" Relationship="ScorekeeperDBModel.FK__Rounds__CourseId__1273C1CD" FromRole="Course" ToRole="Rounds" />
+          <NavigationProperty Name="RoundFinalScore" Relationship="ScorekeeperDBModel.FK_RoundFinalScore_Course" FromRole="Course" ToRole="RoundFinalScore" />
+        </EntityType>
+        <EntityType Name="Hole">
+          <Key>
+            <PropertyRef Name="HoleId" />
+          </Key>
+          <Property Type="Guid" Name="HoleId" Nullable="false" />
+          <Property Type="Guid" Name="CourseId" />
+          <Property Type="Int32" Name="HoleNumber" />
+          <NavigationProperty Name="Course" Relationship="ScorekeeperDBModel.FK__Hole__CourseId__0AD2A005" FromRole="Hole" ToRole="Course" />
+          <NavigationProperty Name="RoundScore" Relationship="ScorekeeperDBModel.FK__RoundScor__HoleI__173876EA" FromRole="Hole" ToRole="RoundScore" />
+          <Property Type="Int32" Name="Distance" />
+        </EntityType>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Type="Guid" Name="RoundId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="CourseId" Nullable="false" />
+          <Property Type="Int32" Name="RoundNumber" />
+          <Property Type="String" Name="Notes" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course" Relationship="ScorekeeperDBModel.FK__Rounds__CourseId__1273C1CD" FromRole="Rounds" ToRole="Course" />
+          <NavigationProperty Name="Users" Relationship="ScorekeeperDBModel.FK__Rounds__UserId__117F9D94" FromRole="Rounds" ToRole="User" />
+          <NavigationProperty Name="RoundScore" Relationship="ScorekeeperDBModel.FK__RoundScor__Round__164452B1" FromRole="Rounds" ToRole="RoundScore" />
+          <Property Type="DateTime" Name="PlayedDate" />
+        </EntityType>
+        <EntityType Name="RoundScore">
+          <Key>
+            <PropertyRef Name="RoundScoreId" />
+          </Key>
+          <Property Type="Guid" Name="RoundScoreId" Nullable="false" />
+          <Property Type="Guid" Name="RoundId" Nullable="false" />
+          <Property Type="Guid" Name="HoleId" Nullable="false" />
+          <Property Type="Int32" Name="Strokes" />
+          <NavigationProperty Name="Hole" Relationship="ScorekeeperDBModel.FK__RoundScor__HoleI__173876EA" FromRole="RoundScore" ToRole="Hole" />
+          <NavigationProperty Name="Rounds" Relationship="ScorekeeperDBModel.FK__RoundScor__Round__164452B1" FromRole="RoundScore" ToRole="Rounds" />
+        </EntityType>
+        <Association Name="FK__Hole__CourseId__0AD2A005">
+          <End Type="ScorekeeperDBModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="ScorekeeperDBModel.Hole" Role="Hole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Hole">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rounds__CourseId__1273C1CD">
+          <End Type="ScorekeeperDBModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.Round" Role="Rounds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Rounds">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoundScor__HoleI__173876EA">
+          <End Type="ScorekeeperDBModel.Hole" Role="Hole" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.RoundScore" Role="RoundScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hole">
+              <PropertyRef Name="HoleId" />
+            </Principal>
+            <Dependent Role="RoundScore">
+              <PropertyRef Name="HoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rounds__UserId__117F9D94">
+          <End Type="ScorekeeperDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.Round" Role="Rounds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Rounds">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoundScor__Round__164452B1">
+          <End Type="ScorekeeperDBModel.Round" Role="Rounds" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.RoundScore" Role="RoundScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="RoundId" />
+            </Principal>
+            <Dependent Role="RoundScore">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RoundFinalScore">
+          <Key>
+            <PropertyRef Name="RoundFinalScoreId" />
+          </Key>
+          <Property Type="Guid" Name="RoundFinalScoreId" Nullable="false" />
+          <Property Type="Guid" Name="CourseId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="FinalScore" />
+          <Property Type="DateTime" Name="PlayedDate" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="ScorekeeperDBModel.FK_RoundFinalScore_Course" FromRole="RoundFinalScore" ToRole="Course" />
+          <NavigationProperty Name="Users" Relationship="ScorekeeperDBModel.FK_RoundFinalScore_Users" FromRole="RoundFinalScore" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_RoundFinalScore_Course">
+          <End Type="ScorekeeperDBModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.RoundFinalScore" Role="RoundFinalScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="RoundFinalScore">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoundFinalScore_Users">
+          <End Type="ScorekeeperDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="ScorekeeperDBModel.RoundFinalScore" Role="RoundFinalScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoundFinalScore">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ScorekeeperDBModelStoreContainer" CdmEntityContainer="ScorekeeperDBEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hole">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.Hole">
+              <MappingFragment StoreEntitySet="Hole">
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="HoleNumber" ColumnName="HoleNumber" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="HoleId" ColumnName="HoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.Round">
+              <MappingFragment StoreEntitySet="Rounds">
+                <ScalarProperty Name="PlayedDate" ColumnName="PlayedDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoundScore">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.RoundScore">
+              <MappingFragment StoreEntitySet="RoundScore">
+                <ScalarProperty Name="Strokes" ColumnName="Strokes" />
+                <ScalarProperty Name="HoleId" ColumnName="HoleId" />
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+                <ScalarProperty Name="RoundScoreId" ColumnName="RoundScoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoundFinalScore">
+            <EntityTypeMapping TypeName="ScorekeeperDBModel.RoundFinalScore">
+              <MappingFragment StoreEntitySet="RoundFinalScore">
+                <ScalarProperty Name="PlayedDate" ColumnName="PlayedDate" />
+                <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="RoundFinalScoreId" ColumnName="RoundFinalScoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ScorekeeperModel">
+        <EntityTypeShape EntityType="ScorekeeperDBModel.User" Width="1.5" PointX="0.625" PointY="5.375" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ScorekeeperDBModel.Course" Width="1.5" PointX="0.875" PointY="0.625" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="ScorekeeperDBModel.Hole" Width="1.5" PointX="3.375" PointY="0.625" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="ScorekeeperDBModel.Round" Width="1.5" PointX="3.5" PointY="4.125" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="ScorekeeperDBModel.RoundScore" Width="1.5" PointX="6.125" PointY="2.5" Height="2.1725878906249996" />
+        <AssociationConnector Association="ScorekeeperDBModel.FK__Hole__CourseId__0AD2A005">
+          <ConnectorPoint PointX="2.375" PointY="1.6151432291666668" />
+          <ConnectorPoint PointX="3.375" PointY="1.6151432291666668" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScorekeeperDBModel.FK__Rounds__CourseId__1273C1CD">
+          <ConnectorPoint PointX="2.375" PointY="2.6052864583333331" />
+          <ConnectorPoint PointX="2.75" PointY="2.9802864583333331" />
+          <ConnectorPoint PointX="2.75" PointY="5.0936210468749987" />
+          <ConnectorPoint PointX="3.5" PointY="5.0936210468749987" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScorekeeperDBModel.FK__RoundScor__HoleI__173876EA">
+          <ConnectorPoint PointX="4.875" PointY="1.5624995" />
+          <ConnectorPoint PointX="6.875" PointY="1.5624995" />
+          <ConnectorPoint PointX="6.875" PointY="2.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScorekeeperDBModel.FK__Rounds__UserId__117F9D94">
+          <ConnectorPoint PointX="2.125" PointY="6.12474609375" />
+          <ConnectorPoint PointX="3.5" PointY="6.12474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScorekeeperDBModel.FK__RoundScor__Round__164452B1">
+          <ConnectorPoint PointX="5" PointY="4.3987939453125" />
+          <ConnectorPoint PointX="6.125" PointY="4.3987939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScorekeeperDBModel.RoundFinalScore" Width="1.375" PointX="0.5" PointY="2.875" Height="1.9802864583333326" />
+        <AssociationConnector Association="ScorekeeperDBModel.FK_RoundFinalScore_Course">
+          <ConnectorPoint PointX="1.375" PointY="2.6052864583333331" />
+          <ConnectorPoint PointX="1.375" PointY="2.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScorekeeperDBModel.FK_RoundFinalScore_Users">
+          <ConnectorPoint PointX="1.25" PointY="5.375" />
+          <ConnectorPoint PointX="1.25" PointY="5.2398893229166656" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

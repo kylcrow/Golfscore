@@ -1,0 +1,57 @@
+﻿@model Scorekeeper.Models.StatsModel
+@{
+    ViewBag.Title = "Stats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stats for @Model.User.FirstName&nbsp;@Model.User.LastName</h2>
+
+<font style="font-weight:bold;">Rounds</font><br /><br />
+<table style="border:none;">
+    <tr>
+        <td style="width: 200px;">
+            Played Date
+        </td>
+        <td style="width: 200px;">
+            Course
+        </td>
+        <td style="width: 200px;">
+            Total Score
+        </td>
+    </tr>
+    @foreach (var item in Model.RoundList.OrderBy(x => x.Round.PlayedDate))
+    { 
+        <tr>
+            <td>
+                @if (item.Round != null && item.Round.PlayedDate != null && item.Round.PlayedDate.HasValue && !item.QuickScore)
+                {
+                    @Html.ActionLink(item.Round.PlayedDate.Value.ToShortDateString(), "Round", new { id = item.Round.RoundId })
+                }
+                else if (item.Round != null && item.Round.PlayedDate != null && item.Round.PlayedDate.HasValue && item.QuickScore){
+                    <text>@item.Round.PlayedDate.Value.ToShortDateString()</text>
+                }
+            </td>
+            <td>
+                @if (item.QuickScore)
+                {
+                    <text>@item.Round.Course.Name</text>
+                }
+                else
+                { 
+                    @Html.ActionLink(item.Round.Course.Name, "Round", new { id = item.Round.RoundId })               
+                }
+            </td>
+            <td>
+                @if (item.QuickScore)
+                {
+                    <text>@item.FinalScore.ToString()</text>
+                }
+                else
+                { 
+                    @Html.ActionLink(item.FinalScore.ToString(), "Round", new { id = item.Round.RoundId })
+                }
+            </td>
+        </tr>
+    }
+</table>
+

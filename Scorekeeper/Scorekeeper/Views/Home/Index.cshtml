@@ -1,0 +1,38 @@
+@model Scorekeeper.Models.HomeModel
+@{
+    ViewBag.Title = "FrolfScore";
+}
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h2>@ViewBag.Message</h2>
+        </hgroup>
+        <p>
+        </p>
+        @if (Request.IsAuthenticated)
+        {
+            if (Model.message != null && Model.message != "")
+            {
+                <font style="color:Red;font-weight:Bold;">@Model.message</font>
+                <br /> 
+                <br /> 
+            }
+            @Html.ActionLink("Start a new round", "Scorecard", "Scorecard")
+            <br />
+            <br />
+            @Html.ActionLink("View personal stats", "Stats", "Stats")
+            <br />
+            <br />
+            <font style="font-weight:bold;font-size:large;">Enter Quick Score</font><br />
+            using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                @Html.DropDownList("ddlCourses", Model.Courses, "")
+                @Html.TextBoxFor(x => x.FinalScore)
+                <input name="Save" value="Save" type="submit" />
+            }
+        }
+    </div>
+</section>
+}

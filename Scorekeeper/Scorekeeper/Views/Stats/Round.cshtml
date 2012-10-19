@@ -1,0 +1,17 @@
+﻿@model Scorekeeper.Round
+@{
+    ViewBag.Title = "Round";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Round for <font style="text-decoration:underline;">@Model.Users.FirstName&nbsp;@Model.Users.LastName</font> at <font style="text-decoration:underline;">@Model.Course.Name</font> on <font style="text-decoration:underline;">@Model.PlayedDate.Value.ToShortDateString()</font> </h2>
+<br />
+@foreach (var item in Model.RoundScore.OrderBy(x => x.Hole.HoleNumber))
+{ 
+    <text>
+        Hole @item.Hole.HoleNumber &nbsp;-&nbsp; @item.Strokes 
+    </text>
+<br />
+<br />    
+}
+Total: @Model.RoundScore.Sum(x => x.Strokes)

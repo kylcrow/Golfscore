@@ -1,0 +1,38 @@
+﻿@model Scorekeeper.Models.MovieGameModel
+@{
+    ViewBag.Title = "Movie Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm((string)ViewBag.FormAction, "MovieGame"))
+{
+    @Html.LabelFor(x => x.Actor, "Actor/Actress: ")
+    @Html.TextBoxFor(x => x.Actor)
+    <br />
+    @Html.LabelFor(x => x.Movie, "Movie: ")
+    @Html.TextBoxFor(x => x.Movie)
+    <br />    
+    <input type="submit" class="button" id="submitButton" value="Search Movie" />
+}
+@if (!Model.FirstLoad)
+{
+    <div id="divResults">
+        @if (Model.Total == 0) {
+            <text>Found 0 results for movie @Model.Movie </text>
+        } 
+        else 
+        {   
+            if(Model.isIn)
+            {
+                <h1>@Model.Actor Is in the movie! </h1>
+                <text>As the character: @Model.CharacterName</text>
+            }
+            else 
+            {
+                <h1>@Model.Actor Is not in the movie! </h1>
+            }
+            <h1>@Model.Title</h1>
+            <img src="@Model.Thumbnail" />
+        }
+    </div>
+}

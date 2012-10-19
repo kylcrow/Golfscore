@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Movie Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()))
+{
+    @Html.Label("Actor/Actress: ")
+    @Html.TextBox("tbActor")
+    <br />
+    @Html.Label("Movie: ")
+    @Html.TextBox("tbMovie")
+    <br />
+    <input type="submit" name="btnSearchMovie" value="Search Movie" onclick="javascript: SearchMovie(); javascript: return false;" />
+    <br />
+    <div id="divResults">
+    </div>
+}
+
+<script type="text/javascript">
+    function SearchMovie() {
+        var apikey = "vknvka2sz6w8fkdbus3pbx3y";
+        var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0";
+
+        divResults.innerHTML = "";
+        // construct the uri with our apikey
+        var query = $("#tbMovie").val();
+        var moviesSearchUrl = baseUrl + '/movies.json?apikey=' + apikey;
+
+        // send off the query
+        $.ajax({
+            url: moviesSearchUrl + '&q=' + encodeURI(query) + "&page=1&page_limit=5",
+            dataType: "jsonp",
+            success: searchCallback
+        });
+    }
+
+    // callback for when we get back the results
+    function searchCallback(data, query) {
+        var query = $("#tbMovie").val();
+        if (data.total == 0) {
+            $(divResults).append('Found ' + data.total + ' results for ' + query);
+        }
+        var movies = data.movies;
+        $.each(movies, function (index, movie) {
+            if (movie.title == $("#tbMovie").val()) {
+                var found = 0;
+                var characterName = "";
+                $.each(movie.abridged_cast, function (index2, castMember) {
+                    if (castMember.name == $("#tbActor").val()) {
+                        found = 1;
+                        characterName = castMember.characters[0];
+                    }
+                });
+
+                if (found == 1) {
+                    $(divResults).append('<h1>' + $("#tbActor").val() + ' Is in the movie! </h1>');
+                    $(divResults).append('As the character: ' + characterName);
+                } else {
+                    $(divResults).append('<h1>' + $("#tbActor").val() + ' Is not in the movie! </h1>');
+                }
+
+                $(divResults).append('<h1>' + movie.title + '</h1>');
+                $(divResults).append('<img src="' + movie.posters.thumbnail + '" />');
+            }
+        });
+    }
+
+</script>

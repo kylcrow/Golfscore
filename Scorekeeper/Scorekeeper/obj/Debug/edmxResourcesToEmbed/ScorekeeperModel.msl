@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ScorekeeperDBModelStoreContainer" CdmEntityContainer="ScorekeeperDBEntities">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hole">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.Hole">
+        <MappingFragment StoreEntitySet="Hole">
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="HoleNumber" ColumnName="HoleNumber" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="HoleId" ColumnName="HoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rounds">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.Round">
+        <MappingFragment StoreEntitySet="Rounds">
+          <ScalarProperty Name="PlayedDate" ColumnName="PlayedDate" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoundScore">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.RoundScore">
+        <MappingFragment StoreEntitySet="RoundScore">
+          <ScalarProperty Name="Strokes" ColumnName="Strokes" />
+          <ScalarProperty Name="HoleId" ColumnName="HoleId" />
+          <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+          <ScalarProperty Name="RoundScoreId" ColumnName="RoundScoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoundFinalScore">
+      <EntityTypeMapping TypeName="ScorekeeperDBModel.RoundFinalScore">
+        <MappingFragment StoreEntitySet="RoundFinalScore">
+          <ScalarProperty Name="PlayedDate" ColumnName="PlayedDate" />
+          <ScalarProperty Name="FinalScore" ColumnName="FinalScore" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="RoundFinalScoreId" ColumnName="RoundFinalScoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
