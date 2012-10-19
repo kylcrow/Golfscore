@@ -32,7 +32,7 @@ namespace Scorekeeper.Controllers
                 model.Thumbnail = movie.posters.thumbnail;
             }
             Cast c = new Cast();
-            c = movie.abridged_cast.Where(x => x.name == model.Actor).FirstOrDefault();
+            c = movie.abridged_cast.Where(x => x.name.ToLower() == model.Actor.ToLower()).FirstOrDefault();
             if (c != null)
             {
                 model.isIn = true;
