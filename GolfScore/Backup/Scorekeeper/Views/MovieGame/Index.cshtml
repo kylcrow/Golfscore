@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Movie Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm((string)ViewBag.FormAction, "MovieGame"))
+{
+    @Html.TextBox("txtTemp")
+    <input type="submit" class="button" id="submitButton" />
+}
+

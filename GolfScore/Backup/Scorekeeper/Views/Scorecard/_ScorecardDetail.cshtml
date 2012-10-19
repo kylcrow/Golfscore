@@ -1,0 +1,22 @@
+﻿@model Scorekeeper.Models.ScorecardModel
+
+<br />
+<font style="font-weight:bold;">@Model.SelectedCourse.Name</font>
+<br />
+<br />
+@using (Html.BeginForm("ScorecardDetail", "Scorecard", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.SelectedCourseValue)
+    foreach (var item in Model.SelectedCourse.Hole.OrderBy(x => x.HoleNumber))
+    { 
+        <text>Hole @item.HoleNumber&nbsp;&nbsp; - @item.Distance<br />
+    
+        Strokes:&nbsp;&nbsp; @Html.DropDownList("Hole" + @item.HoleNumber, new SelectList(new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }))
+        <br /><br />
+        </text>
+    }
+    <input type="submit" name="Save Round" value="Save Round" />
+}
+
+
+

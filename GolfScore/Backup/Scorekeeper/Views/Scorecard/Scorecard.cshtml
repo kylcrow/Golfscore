@@ -1,0 +1,30 @@
+﻿@model Scorekeeper.Models.ScorecardModel
+@{
+    ViewBag.Title = "Scorecard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Scorecard for @Model.User.FirstName @Model.User.LastName</h2>
+<br />
+    @if (Model.message != null && Model.message != "")
+    {
+<br />
+        <font style="color:red;font-weight:bold">@Model.message</font> 
+<br />
+<br />
+    }
+@using (Ajax.BeginForm("Scorecard", "Scorecard", new AjaxOptions() { UpdateTargetId = "scorecardDetail" }))
+{
+    <text>
+        Select a course: @Html.DropDownListFor(x => x.SelectedCourseValue, new SelectList(Model.CourseList, "CourseId", "Name"))
+    </text>
+    
+    <input type="submit" value="Select" name="Select" /> 
+}
+
+<div id="scorecardDetail">
+    @if (Model.SelectedCourse != null)
+    {
+        @Html.Partial("_ScorecardDetail", Model) 
+    }
+</div>

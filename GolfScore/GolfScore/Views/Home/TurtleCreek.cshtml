@@ -1,0 +1,63 @@
+﻿@model GolfScore.Models.TurtleCreekModel
+@{
+ViewBag.Title = "Turtlecreek";
+}
+
+<h2>TurtleCreek</h2>
+
+@if (Model != null && Model.errorMessage != "")
+{ 
+<font style="color: Red; font-weight:bold">@Model.errorMessage</font>
+}
+
+<div id="Container">
+@using (Ajax.BeginForm("TurtleCreek", "Home", new AjaxOptions { UpdateTargetId = "Container" }, new { id = "TurtleForm" }))
+{ 
+    <table>
+        <thead>
+            <tr>
+                <td></td>
+                <td>
+                    Player 1
+                </td>
+                <td>
+                    Player 2
+                </td>
+                <td>
+                    Player 3
+                </td>
+                <td>
+                    Player 4
+                </td>
+            </tr>
+        </thead>
+@*        @for (int i = 0; i < 18; i++)
+        {
+            int j = i + 1;
+            <tr>
+                <td>Hole @j</td>
+                <td>
+                    @Html.TextBoxFor(x => x.Player1Scores[i])
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Player2Scores[i])
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Player3Scores[i])
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Player4Scores[i])
+                </td>
+            </tr>         
+        }
+*@    </table>
+    <input type="submit" id="submitTurtle" name="Save" value="Save" />
+}
+</div>
+
+<script type="text/javascript">
+
+    function GoForm() {
+    }
+
+</script>
