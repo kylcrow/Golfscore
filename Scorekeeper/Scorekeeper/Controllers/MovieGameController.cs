@@ -20,7 +20,7 @@ namespace Scorekeeper.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection, MovieGameModel model)
         {
-            model.FirstLoad = false;
+            model.FirstLoad = false; 
 
             Movie movie = new Movie();
             movie = model.GetMovieWithCast(model.Movie);
